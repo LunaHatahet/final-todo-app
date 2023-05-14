@@ -1,0 +1,53 @@
+.item {
+    text-align: center;
+    margin: 1rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.item h3 {
+    margin: 0 0 0.25rem 0;
+    flex: 1
+}
+
+.actions {
+    margin: 1rem;
+}
+
+.actions button {
+    font: inherit;
+    cursor: pointer;
+    background-color: #62006e;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #62006e;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.actions button:hover,
+.actions button:active {
+    background-color: #7a018a;
+    border-color: #7a018a;
+}
+
+.logout {
+    margin: 1rem;
+    text-align: right;
+}
+
+.logout button {
+    font: inherit;
+    cursor: pointer;
+    background-color: #2c2c2c;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #2c2c2c;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.logout button:hover,
+.logout button:active {
+    background-color: #444444;
+    border-color: #444444;
+}
