@@ -3,29 +3,35 @@ import axios from "axios";
 import AvailableLists from "../components/Todos/AvailableLists";
 
 function HomePage(props) {
-  const response = axios
-    .get("http://localhost:8000/", {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZTY1NGFlNi01M2FhLTQwNDQtODc5Mi1kMTBjNjMyNDU1ZjQiLCJpYXQiOjE2ODQwNjExMTd9.SU8YybOGY_Mhg1-65S_cX5BP-wkhThVZxrlKpVUSuCU",
-      },
-    })
-    .then((response) => {
-      const lists = response.data;
-
-      return <AvailableLists lists={props.lists} />;
-    });
+  return <AvailableLists lists={props.lists} />;
 }
 
-// export async function getStaticProps() {
-//   // fetch data from an API
+export async function getStaticProps() {
+  try {
+    // Fetch data from an API
+    const response = await axios.get("http://localhost:8000/", {
+      headers: {
+        Authorization: 'Bearer d1b41c94f57ce66f9020b70f6bad485d3dcd4a73ffa7cd9643754535c7896ef7db2e2040772773d2efd00fde1eb4089b2a38a75e626d7d16042821c4b2a4a2bb'
+       }
+    });
+    const lists = response.data;
 
-//   // return {
-//   //   props: {
-//   //     lists,
-//   //   },
-//   //   revalidate: 1,
-//   // };
-// }
+    return {
+      props: {
+        lists,
+      },
+      revalidate: 1,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        lists: [],
+      },
+      revalidate: 1,
+    };
+  }
+}
+
 
 export default HomePage;
