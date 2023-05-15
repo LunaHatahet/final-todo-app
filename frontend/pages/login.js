@@ -1,16 +1,26 @@
-import { useRouter } from 'next/router';
+import axios from "axios";
 
-import LoginForm from '../components/Todos/LoginForm';
+import { useRouter } from "next/router";
+
+import LoginForm from "../components/Todos/LoginForm";
 
 function Login() {
-    const router = useRouter();
+  const router = useRouter();
 
-  function loginHandler(enteredLoginData) {
-    console.log(enteredLoginData);
-    // Check if enteredLoginData is avaialable in database then login
-    router.push('/');
+  async function loginHandler(enteredLoginData) {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/login",
+        enteredLoginData
+      );
+      console.log(enteredLoginData);
+      console.log(response.data);
+      router.push("/");
+    } catch (error) {
+      console.log(error.response.data);
+    }
   }
-  return <LoginForm onLogin={loginHandler} />
+  return <LoginForm onLogin={loginHandler} />;
 }
 
 export default Login;
