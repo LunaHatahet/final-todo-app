@@ -1,43 +1,47 @@
 import EditListForm from "../../components/Todos/EditListForm";
 
-function EditList() {
-  function editListHandler(enteredListData) {
-    console.log(enteredListData);
-    //Edit data in the server
+function EditList({ listData }) {
+  async function editListHandler(enteredListData) {
+    try {
+      await axios.post(
+        `http://localhost:8000/edit/${listData.id}`,
+        enteredListData
+      );
+      console.log("List has been updated");
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <EditListForm
       onEditList={editListHandler}
-      name="List One"
-      status="Complete"
-      items="12345"
-      attachment="1681680426784-catPhoto.jpg"
+      name={listData.name}
+      status={listData.status}
+      items={listData.items}
+      attachment={listData.attachment}
     />
   );
 }
 
 export async function getStaticProps(context) {
-  // fetch data from backend
-  // cannot use hooks
-
   const listId = context.params.listId;
 
   console.log(listId);
 
-  return {
-    props: {
-      listData: {
-        id: listId,
-        name: "List One",
-        status: "Active",
-        items: "wjlbefiuewvi",
-        attachment: "1681680426784-catPhoto.jpg",
+  try {
+    const response = await axios.get(`http://localhost:8000/edit/${listId}`);
+    const listData = response.data;
+
+    return {
+      props: {
+        listData,
       },
-    },
-  };
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-// needed in dynamic pages to know which id's to regenerate
 export async function getStaticPaths() {
   return {
     fallback: true,

@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport(sgTransport(options));
 
 const sendResetPasswordEmail = async (email) => {
     const token = crypto.randomBytes(20).toString('hex');
-    const resetPasswordUrl = `http://localhost:3000/reset-password/${token}`;
+    const resetPasswordUrl = `http://localhost:3000/update-password/${token}`;
     const message = {
         to: email,
         from: process.env.SENDGRID_EMAIL,

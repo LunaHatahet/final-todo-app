@@ -46,17 +46,12 @@ exports.loginUser = (req, res, next) => {
 exports.signup = (req, res, next) => {
   res.render("signup");
 };
-// modify this code to be used as api in nextjs:
-// modify the following nextjs file to use the above nodejs file:
-// Do i have to do any modifications to the API endpoint file?
+
 exports.signupUser = (req, res, next) => {
-  const enteredSignupData = req.body;
-  const name = enteredSignupData.name;
-  const email = enteredSignupData.email;
-  const password = enteredSignupData.password;
+  const { name, email, password } = req.body
   const id = uuidv4();
 
-  console.log("Trial", name, email, password);
+  console.log(name, email, password);
   
   bcrypt.genSalt(12, (err, salt) => {
     if (err) {
@@ -121,7 +116,7 @@ exports.updatePasswordSubmit = (req, res, next) => {
   const password = req.body.password;
   const token = req.params.token;
 
-  User.findOne({ where: { token: token } })
+  User.findOne({ where: { token } })
     .then((user) => {
       bcrypt.hash(password, 12, (err, hashedPassword) => {
         user

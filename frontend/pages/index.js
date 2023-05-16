@@ -8,13 +8,12 @@ function HomePage(props) {
 
 export async function getStaticProps() {
   try {
-    // Fetch data from an API
     const response = await axios.get("http://localhost:8000/", {
       headers: {
         Authorization: 'Bearer d1b41c94f57ce66f9020b70f6bad485d3dcd4a73ffa7cd9643754535c7896ef7db2e2040772773d2efd00fde1eb4089b2a38a75e626d7d16042821c4b2a4a2bb'
        }
     });
-    const lists = response.data;
+    const lists = response.data.lists;
 
     return {
       props: {
