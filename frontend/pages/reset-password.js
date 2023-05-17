@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+
 import axios from "axios";
 
 import ResetPasswordForm from "@/components/Todos/ResetPasswordForm";
@@ -10,7 +11,7 @@ function ResetPassword() {
     try {
       const response = await axios.post(
         "http://localhost:8000/reset-password",
-        { enteredUserEmail }
+        enteredUserEmail
       );
       console.log(enteredUserEmail);
       if (response.status === 200) {

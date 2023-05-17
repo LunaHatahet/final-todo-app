@@ -9,10 +9,10 @@ function UpdatePassword({ token }) {
 
   async function updatePasswordHandler(enteredPassword) {
     try {
-      await axios.post(`http://localhost:8000/reset-password/${token}`, {
-        password: enteredPassword,
-        token: token,
-      });
+      await axios.post(
+        `http://localhost:8000/reset-password/${token}`,
+        enteredPassword
+      );
       console.log(enteredPassword);
       router.push("/login");
     } catch (error) {

@@ -12,9 +12,9 @@ exports.login = (req, res, next) => {
 };
 
 exports.loginUser = (req, res, next) => {
-    const enteredLoginData = req.body;
-    const email = enteredLoginData.email;
-    const password = enteredLoginData.password;
+  const enteredLoginData = req.body;
+  const email = enteredLoginData.email;
+  const password = enteredLoginData.password;
 
   User.findOne({ where: { email: email } })
     .then((user) => {
@@ -48,21 +48,21 @@ exports.signup = (req, res, next) => {
 };
 
 exports.signupUser = (req, res, next) => {
-  const { name, email, password } = req.body
+  const { name, email, password } = req.body;
   const id = uuidv4();
 
   console.log(name, email, password);
-  
+
   bcrypt.genSalt(12, (err, salt) => {
     if (err) {
       console.log(err);
-      return res.status(500).json({ error: 'An error occurred' });
+      return res.status(500).json({ error: "An error occurred" });
     }
 
     bcrypt.hash(password, salt, (err, hashedPassword) => {
       if (err) {
         console.log(err);
-        return res.status(500).json({ error: 'An error occurred' });
+        return res.status(500).json({ error: "An error occurred" });
       }
 
       User.create({
@@ -71,10 +71,12 @@ exports.signupUser = (req, res, next) => {
         email: email,
         password: hashedPassword,
       })
-        .then(() => res.status(201).json({ message: 'User created successfully' }))
+        .then(() =>
+          res.status(201).json({ message: "User created successfully" })
+        )
         .catch((err) => {
           console.log(err);
-          res.status(500).json({ error: 'Failed to create user' });
+          res.status(500).json({ error: "Failed to create user" });
         });
     });
   });
@@ -91,14 +93,18 @@ exports.resetPasswordSubmit = (req, res, next) => {
     .then((user) => {
       if (user) {
         Email.sendResetPasswordEmail(email);
-        res.status(200).json({ message: 'Reset password email sent successfully.' });
+        res
+          .status(200)
+          .json({ message: "Reset password email sent successfully." });
       } else {
-        res.status(404).json({ message: 'No account with that email address exists.' });
+        res
+          .status(404)
+          .json({ message: "No account with that email address exists." });
       }
     })
     .catch((error) => {
       console.log(error);
-      res.status(500).json({ message: 'An error occurred.' });
+      res.status(500).json({ message: "An error occurred." });
     });
 };
 
@@ -118,21 +124,22 @@ exports.updatePasswordSubmit = (req, res, next) => {
 
   User.findOne({ where: { token } })
     .then((user) => {
-      bcrypt.hash(password, 12, (err, hashedPassword) => {
-        user
-          .update({
-            password: hashedPassword,
-            token: null,
-          })
-          .then(() => {
-            console.log("Your password has been reset!");
-            res.redirect("/login");
-          })
-          .catch(() => {
-            console.log("Error updating password.");
-            res.redirect("/reset-password");
-          });
-      });
+      bcrypt
+        .hash(password, 12)
+        .then((hashedPassword) => {
+          user.password = hashedPassword;
+          user.token = null;
+          return user.save();
+        })
+        .then(() => {
+          res.status(200).json({ message: "Your password has been reset!" });
+        })
+        .catch(() => {
+          res.status(404).json({ message: "Error updating password." });
+        });
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: "An error occurred." });
+    });
 };
