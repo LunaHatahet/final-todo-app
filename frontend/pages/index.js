@@ -10,7 +10,7 @@ export async function getStaticProps() {
   try {
     const response = await axios.get("http://localhost:8000/", {
       headers: {
-        Authorization: 'Bearer d1b41c94f57ce66f9020b70f6bad485d3dcd4a73ffa7cd9643754535c7896ef7db2e2040772773d2efd00fde1eb4089b2a38a75e626d7d16042821c4b2a4a2bb'
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZTY1NGFlNi01M2FhLTQwNDQtODc5Mi1kMTBjNjMyNDU1ZjQiLCJpYXQiOjE2ODQxODQ3MDZ9.NUmQBiCTChFXFcJaUMPH1_8fVSPwtFtXyJI7xPRXVpE'
        }
     });
     const lists = response.data.lists;

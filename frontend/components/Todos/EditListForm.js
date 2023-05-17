@@ -11,17 +11,17 @@ function EditListForm(props) {
   const statusInputRef = useRef();
   const itemsInputRef = useRef();
   const [attachmentValue, setAttachmentValue] = useState(null);
+  const [status, setStatus] = useState(props.status);
 
   function submitHandler(event) {
     event.preventDefault();
 
     const enteredName = nameInputRef.current.value;
-    const enteredStatus = statusInputRef.current.value;
     const enteredItems = itemsInputRef.current.value;
 
     const listData = {
       name: enteredName,
-      status: enteredStatus,
+      status: status,
       items: enteredItems,
       attachment: attachmentValue,
     };
@@ -31,6 +31,10 @@ function EditListForm(props) {
 
   function backHandler() {
     router.push("/");
+  }
+
+  function statusChangeHandler(event) {
+    setStatus(event.target.value);
   }
 
   return (
@@ -49,7 +53,12 @@ function EditListForm(props) {
 
         <div className={classes.control}>
           <label htmlFor="status">Status</label>
-          <select id="status" ref={statusInputRef} value={props.status}>
+          <select
+            id="status"
+            ref={statusInputRef}
+            value={status}
+            onChange={statusChangeHandler}
+          >
             <option value="Active">Active</option>
             <option value="Complete">Complete</option>
           </select>
