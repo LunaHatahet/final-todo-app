@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 import Card from "../UI/Card";
 import classes from "./Forms.module.css";
 
 function NewListForm(props) {
+  const router = useRouter();
+
   const nameInputRef = useRef();
   const statusInputRef = useRef();
   const itemsInputRef = useRef();
@@ -27,6 +29,10 @@ function NewListForm(props) {
     props.onAddList(listData);
   }
 
+  function backHandler() {
+    router.push("/");
+  }
+  
   return (
     <Card>
       <form className={classes.form} onSubmit={submitHandler}>
@@ -38,8 +44,8 @@ function NewListForm(props) {
         <div className={classes.control}>
           <label htmlFor="status">Status</label>
           <select id="status" ref={statusInputRef}>
-            <option value="active">Active</option>
-            <option value="complete">Complete</option>
+            <option value="Active">Active</option>
+            <option value="Complete">Complete</option>
           </select>
         </div>
 
@@ -59,11 +65,12 @@ function NewListForm(props) {
         </div>
 
         <div className={classes.actions}>
-          <button>Add List</button>
-
-          <Link href="/">
-            <button>Cancel</button>
-          </Link>
+        <button type="submit" onClick={backHandler}>
+            Add List
+          </button>
+          <button type="button" onClick={backHandler}>
+            Cancel
+          </button>
         </div>
       </form>
     </Card>
