@@ -18,6 +18,7 @@ function Login() {
       router.push("/");
     } catch (error) {
       console.log(error.response.data);
+      alert(error.response.data)
     }
   }
   return <LoginForm onLogin={loginHandler} />;
