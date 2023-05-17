@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 import Card from "../UI/Card";
 import classes from "./Forms.module.css";
 
 function EditListForm(props) {
+  const router = useRouter();
+
   const nameInputRef = useRef();
   const statusInputRef = useRef();
   const itemsInputRef = useRef();
@@ -27,25 +29,41 @@ function EditListForm(props) {
     props.onEditList(listData);
   }
 
+  function backHandler() {
+    router.push("/");
+  }
+
   return (
     <Card>
       <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="name">Name</label>
-          <input type="text" required id="name" value={props.name} ref={nameInputRef} />
+          <input
+            type="text"
+            required
+            id="name"
+            defaultValue={props.name}
+            ref={nameInputRef}
+          />
         </div>
 
         <div className={classes.control}>
           <label htmlFor="status">Status</label>
-          <select id="status" ref={statusInputRef}>
-            <option value="active">Active</option>
-            <option value="complete">Complete</option>
+          <select id="status" ref={statusInputRef} value={props.status}>
+            <option value="Active">Active</option>
+            <option value="Complete">Complete</option>
           </select>
         </div>
 
         <div className={classes.control}>
           <label htmlFor="items">Items</label>
-          <textarea id="items" required rows="5" value={props.items} ref={itemsInputRef}></textarea>
+          <textarea
+            id="items"
+            required
+            rows="5"
+            defaultValue={props.items}
+            ref={itemsInputRef}
+          />
         </div>
 
         <div className={classes.control}>
@@ -59,12 +77,12 @@ function EditListForm(props) {
         </div>
 
         <div className={classes.actions}>
-          <Link href="/">
-            <button>Update List</button>
-          </Link>
-          <Link href="/">
-            <button>Cancel</button>
-          </Link>
+          <button type="submit" onClick={backHandler}>
+            Update List
+          </button>
+          <button type="button" onClick={backHandler}>
+            Cancel
+          </button>
         </div>
       </form>
     </Card>

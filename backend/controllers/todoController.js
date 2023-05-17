@@ -61,9 +61,12 @@ exports.createList = (req, res, next) => {
 exports.editList = (req, res, next) => {
   Todo.findOne({ where: { id: req.params.id } })
     .then((todo) => {
-      res.render("todo-edit", { todo: todo.toJSON() });
+      res.status(200).json({ todo: todo.toJSON() });
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ error: 'Internal server error' });
+    });
 };
 
 exports.updateList = (req, res, next) => {
@@ -98,7 +101,7 @@ exports.viewAttachment = (req, res, next) => {
 exports.deleteList = (req, res, next) => {
   Todo.destroy({ where: { id: req.params.id } })
     .then(() => {
-      res.redirect("/");
+      res.status(200).end();
     })
     .catch((error) => console.log(error));
 };

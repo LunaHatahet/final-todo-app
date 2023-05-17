@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import axios from "axios";
 
 import Card from "../UI/Card";
 import classes from "./ListItem.module.css";
@@ -10,12 +11,27 @@ function ListItem(props) {
     router.push("/edit/" + props.id);
   }
 
-  function deleteHandler() {
-    // delete item from database and re-render (useEffect/useState)?
-    console.log("Item deleted!");
+  async function deleteHandler() {
+    try {
+      await axios.post(
+        `http://localhost:8000/delete/${props.id}`,
+        {},
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZTY1NGFlNi01M2FhLTQwNDQtODc5Mi1kMTBjNjMyNDU1ZjQiLCJpYXQiOjE2ODQxODQ3MDZ9.NUmQBiCTChFXFcJaUMPH1_8fVSPwtFtXyJI7xPRXVpE",
+          },
+        }
+      );
+      console.log("Item deleted!");
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const statusClass = props.status === "Complete" ? classes.completeStatus : classes.activeStatus;
+  const statusClass =
+    props.status === "Complete" ? classes.completeStatus : classes.activeStatus;
 
   return (
     <Card>

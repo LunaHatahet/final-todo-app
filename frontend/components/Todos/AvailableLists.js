@@ -7,9 +7,8 @@ import { Fragment } from "react";
 
 const AvailableLists = (props) => {
   const todoList = props.lists.map((list) => (
-    <div className={classes.item}>
+    <div className={classes.item} key={list.id}>
       <ListItem
-        key={list.id}
         id={list.id}
         name={list.name}
         status={list.status}

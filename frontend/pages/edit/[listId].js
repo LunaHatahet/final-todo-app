@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import EditListForm from "../../components/Todos/EditListForm";
 
 function EditList({ listData }) {
@@ -5,7 +7,13 @@ function EditList({ listData }) {
     try {
       await axios.post(
         `http://localhost:8000/edit/${listData.id}`,
-        enteredListData
+        enteredListData,
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZTY1NGFlNi01M2FhLTQwNDQtODc5Mi1kMTBjNjMyNDU1ZjQiLCJpYXQiOjE2ODQxODQ3MDZ9.NUmQBiCTChFXFcJaUMPH1_8fVSPwtFtXyJI7xPRXVpE",
+          },
+        }
       );
       console.log("List has been updated");
     } catch (error) {
@@ -29,8 +37,13 @@ export async function getStaticProps(context) {
   console.log(listId);
 
   try {
-    const response = await axios.get(`http://localhost:8000/edit/${listId}`);
-    const listData = response.data;
+    const response = await axios.get(`http://localhost:8000/edit/${listId}`, {
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZTY1NGFlNi01M2FhLTQwNDQtODc5Mi1kMTBjNjMyNDU1ZjQiLCJpYXQiOjE2ODQxODQ3MDZ9.NUmQBiCTChFXFcJaUMPH1_8fVSPwtFtXyJI7xPRXVpE",
+      },
+    });
+    const listData = response.data.todo;
 
     return {
       props: {
