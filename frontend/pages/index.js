@@ -3,6 +3,7 @@ import { Fragment, useState } from "react";
 import axios from "axios";
 
 import AvailableLists from "../components/Todos/AvailableLists";
+import Pagination from "../components/Todos/Pagination";
 
 function HomePage(props) {
   const [pageSize, setPageSize] = useState(5); 
@@ -30,14 +31,7 @@ function HomePage(props) {
 
   return (
     <Fragment>
-      <div style={{ fontWeight: "bold", textAlign: "right", marginRight: "1rem" }}>
-        <label htmlFor="pageSize">Page Size: </label>
-        <select id="pageSize" value={pageSize} onChange={handlePageSizeChange}>
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-        </select>
-      </div>
+      <Pagination pageSize={pageSize} onPageSizeChange={handlePageSizeChange} />
       <AvailableLists lists={lists} />
     </Fragment>
   );
