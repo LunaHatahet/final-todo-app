@@ -3,3 +3,14 @@
     font-weight: bold;
     text-align: right;
 }
+
+.paginationLinks {
+    /* font-weight: bold; */
+    font: black;
+    text-align: center;
+}
+
+.active {
+    font: red;
+    font-weight: bold;
+}
