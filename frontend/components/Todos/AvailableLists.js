@@ -20,12 +20,14 @@ const AvailableLists = (props) => {
 
   return (
     <Fragment>
-      <div className={classes.actions}>
-        <Link href="/new-list">
-          <button> + Create New List </button>
-        </Link>
-      </div>
-      <Card>{todoList}</Card>
+      <Card>
+        <div className={classes.actions}>
+          <Link href="/new-list">
+            <button> + Create New List </button>
+          </Link>
+        </div>
+        {todoList}
+      </Card>
       <div className={classes.logout}>
         <Link href="/login">
           <button> Logout </button>

@@ -18,7 +18,7 @@ exports.pagination = (req, res, next) => {
       const lists = result.rows;
       const count = result.count;
       const pageCount = Math.ceil(count / pageSize);
-      res.json({ lists, pageCount, pageSize, page });
+      res.status(200).json({ lists, pageCount, pageSize, page });
     })
     .catch((error) => {
       console.log(error);
