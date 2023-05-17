@@ -19,14 +19,13 @@ function EditListForm(props) {
     const enteredName = nameInputRef.current.value;
     const enteredItems = itemsInputRef.current.value;
 
-    const listData = {
-      name: enteredName,
-      status: status,
-      items: enteredItems,
-      attachment: attachmentValue,
-    };
+    const formData = new FormData();
+    formData.append("name", enteredName);
+    formData.append("status", status);
+    formData.append("items", enteredItems);
+    formData.append("attachment", attachmentValue);
 
-    props.onEditList(listData);
+    props.onEditList(formData);
   }
 
   function backHandler() {

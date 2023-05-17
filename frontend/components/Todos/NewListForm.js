@@ -15,18 +15,13 @@ function NewListForm(props) {
   function submitHandler(event) {
     event.preventDefault();
 
-    const enteredName = nameInputRef.current.value;
-    const enteredStatus = statusInputRef.current.value;
-    const enteredItems = itemsInputRef.current.value;
+    const formData = new FormData();
+    formData.append("name", nameInputRef.current.value);
+    formData.append("status", statusInputRef.current.value);
+    formData.append("items", itemsInputRef.current.value);
+    formData.append("attachment", attachmentValue);
 
-    const listData = {
-      name: enteredName,
-      status: enteredStatus,
-      items: enteredItems,
-      attachment: attachmentValue,
-    };
-
-    props.onAddList(listData);
+    props.onAddList(formData);
   }
 
   function backHandler() {

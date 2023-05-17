@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-import NewListForm from '../components/Todos/NewListForm';
+import NewListForm from "../components/Todos/NewListForm";
 
 function NewList() {
   async function addListHandler(enteredListData) {
@@ -12,6 +12,7 @@ function NewList() {
           headers: {
             Authorization:
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZTY1NGFlNi01M2FhLTQwNDQtODc5Mi1kMTBjNjMyNDU1ZjQiLCJpYXQiOjE2ODQxODQ3MDZ9.NUmQBiCTChFXFcJaUMPH1_8fVSPwtFtXyJI7xPRXVpE",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -23,7 +24,7 @@ function NewList() {
     }
   }
 
-  return <NewListForm onAddList={addListHandler} />
+  return <NewListForm onAddList={addListHandler} />;
 }
 
 export default NewList;
