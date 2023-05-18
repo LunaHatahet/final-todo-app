@@ -38,8 +38,13 @@ function ListItem(props) {
       <div className={classes.container}>
         <h3>{props.name}</h3>
         <div className={classes.description}>{props.items}</div>
-        <div className={classes.description}>{props.attachment}</div>
-        <div className={statusClass}>{props.status}</div>
+        {props.attachment && (
+          <div className={classes.description}>
+            <a href={props.attachment} target="_blank" rel="noopener noreferrer">
+            {props.attachment}
+            </a>
+          </div>
+        )}        <div className={statusClass}>{props.status}</div>
         <button onClick={editHandler}>Edit</button>
         <button onClick={deleteHandler}>Delete</button>
       </div>
